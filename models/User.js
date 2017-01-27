@@ -5,6 +5,8 @@ var userSchema = new Schema({
   name: String,
   username: { type: String, required: true, unique: true },
   image: String,
+  wins: Number,
+  games: Number,
   created_at: Date
 });
 
