@@ -3,9 +3,9 @@ import axios from 'axios';
 
 class App extends Component {
   componentDidMount() {
-    axios.get('/user/danf')
+    axios.get('/api/user/danf')
       .then((response) => {
-        console.log(response);
+        console.log('response:' + response);
       })
       .catch((error) => {
         console.error(error);

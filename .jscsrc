@@ -1,13 +1,4 @@
 {
-  "requireCurlyBraces": [
-    "if",
-    "else",
-    "for",
-    "while",
-    "do",
-    "try",
-    "catch"
-  ],
   "requireSpaceAfterKeywords": [
     "if",
     "else",
@@ -19,7 +10,6 @@
     "return",
     "try",
     "catch",
-    "function",
     "typeof"
   ],
   "requireSpaceBeforeBlockStatements": true,
@@ -33,12 +23,9 @@
   },
   "requireSpaceBetweenArguments": true,
   "requireMultipleVarDecl": "onevar",
-  "requireVarDeclFirst": true,
-  "requireBlocksOnNewline": true,
   "disallowEmptyBlocks": true,
   "disallowSpacesInsideArrayBrackets": true,
   "disallowSpacesInsideParentheses": true,
-  "disallowDanglingUnderscores": true,
   "requireCommaBeforeLineBreak": true,
   "disallowSpaceAfterPrefixUnaryOperators": true,
   "disallowSpaceBeforePostfixUnaryOperators": true,
@@ -46,10 +33,6 @@
     ","
   ],
   "requireSpacesInForStatement": true,
-  "requireSpacesInAnonymousFunctionExpression": {
-    "beforeOpeningRoundBrace": true,
-    "beforeOpeningCurlyBrace": true
-  },
   "requireSpaceBeforeBinaryOperators": true,
   "requireSpaceAfterBinaryOperators": true,
   "disallowKeywords": [
@@ -66,7 +49,6 @@
   "requireLineFeedAtFileEnd": true,
   "requireCapitalizedConstructors": true,
   "requireDotNotation": true,
-  "disallowNewlineBeforeBlockStatements": true,
   "disallowMultipleLineStrings": true,
   "requireSpaceBeforeObjectValues": true,
   "disallowMultipleVarDecl": false,

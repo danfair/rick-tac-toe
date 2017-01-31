@@ -3,13 +3,13 @@ import App from '../components/App';
 import About from '../components/Pages/About';
 import Home from '../components/Pages/Home';
 import Game from '../components/Pages/Game';
-import ReactRouter, { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import ReactRouter, { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import WinsLeaders from '../components/Pages/WinsLeaders';
 import WinPercentageLeaders from '../components/Pages/WinPercentageLeaders';
 import GamesLeaders from '../components/Pages/GamesLeaders';
 
 const routes = (
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path='/' component={App}>
       <IndexRoute component={Home} />
       <Route path='about' component={About} />
