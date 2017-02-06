@@ -1,2 +1,35 @@
 h1 {
   color: green; }
+
+.twitter-blue {
+  background-color: #4099FF; }
+  .twitter-blue:hover {
+    background-color: #1783ff; }
+
+.facebook-blue {
+  background-color: #3b5998; }
+  .facebook-blue:hover {
+    background-color: #30487b; }
+
+.container {
+  max-width: 1260px;
+  width: auto; }
+
+.game-board {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid green;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto; }
+
+.game-board > a {
+  display: block;
+  height: 200px;
+  width: 33.3333%; }
+  .game-board > a:nth-child(3n+3) {
+    width: 33.3334%; }
+  .game-board > a:not(:nth-child(1n+7)) {
+    border-bottom: 1px solid green; }
+  .game-board > a:not(:nth-child(3n+3)) {
+    border-right: 1px solid green; }

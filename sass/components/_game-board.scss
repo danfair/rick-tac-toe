@@ -1,0 +1,26 @@
+.game-board {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid green;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .game-board > a {
+    display: block;
+    height: 200px;
+    width: 33.3333%;
+
+    &:nth-child(3n+3) {
+      width: 33.3334%;
+    }
+
+    &:not(:nth-child(1n+7)) {
+      border-bottom: 1px solid green;
+    }
+
+    &:not(:nth-child(3n+3)) {
+      border-right: 1px solid green;
+    }
+  }

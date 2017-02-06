@@ -1,1 +1,9 @@
 @import "base/typography";
+@import "base/buttons";
+
+.container {
+    max-width: 1260px;
+    width: auto;
+}
+
+@import "components/game-board";

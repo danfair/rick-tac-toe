@@ -1,0 +1,15 @@
+.twitter-blue {
+  background-color: #4099FF;
+
+  &:hover {
+    background-color: darken(#4099FF, 8%);
+  }
+}
+
+.facebook-blue {
+  background-color: #3b5998;
+
+  &:hover {
+    background-color: darken(#3b5998, 8%);
+  }
+}

@@ -13,13 +13,29 @@ router.use(bodyParser.urlencoded({ extended: false }));
 mongoose.connect(config.mongodbUri);
 
 router.get('/user/:userId', (req, res) => {
-  console.log(req.params.userId);
-  User.find({ username: req.params.userId }, function (err, user) {
-    if (err) throw err;
+  if (req.isAuthenticated()) {
+    User.find({ username: req.params.userId }, function (err, user) {
+      if (err) throw err;
 
-    res.send(user);
-  });
+      res.send(user);
+    });
+  } else {
+    res.json({
+      accessDenied: true
+    })
+  }
 });
+
+function ensureAuthenticated(req, res, next) {
+  console.log(req.session);
+  if (req.isAuthenticated()) {
+    // req.user is available for use here
+    return next(); 
+  }
+
+  // denied. redirect to login
+  res.redirect('/?loginfailure=true')
+}
 
 
 export default router;

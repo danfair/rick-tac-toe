@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
+import Header from './Header';
 
 class App extends Component {
   componentDidMount() {
@@ -10,12 +11,12 @@ class App extends Component {
       .catch((error) => {
         console.error(error);
       });
-    console.log('App mounted');
   }
 
   render() {
     return (
-      <div>
+      <div id="app">
+        <Header />
         <h2>{ this.props.title }</h2>
         { this.props.children }
       </div>
