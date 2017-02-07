@@ -29684,7 +29684,7 @@
 	        },
 	        a2: {
 	          player: '',
-	          mark: 'X'
+	          mark: ''
 	        },
 	        a3: {
 	          player: '',
@@ -29722,63 +29722,116 @@
 	  }
 	
 	  _createClass(GameBoard, [{
-	    key: 'updatePlayerImage',
-	    value: function updatePlayerImage() {}
-	  }, {
 	    key: 'checkForWinner',
-	    value: function checkForWinner() {
-	      return false;
+	    value: function checkForWinner(board) {
+	      var _this2 = this;
+	
+	      var winner = false;
+	
+	      // check rows
+	      if (board.a1.mark === board.a2.mark && board.a1.mark === board.a3.mark) {
+	        winner = board.a1.mark;
+	      };
+	      if (board.b1.mark === board.b2.mark && board.b1.mark === board.b3.mark) {
+	        winner = board.b1.mark;
+	      };
+	      if (board.c1.mark === board.c2.mark && board.c1.mark === board.c3.mark) {
+	        winner = board.c1.mark;
+	      };
+	
+	      // check columns
+	      if (board.a1.mark === board.b1.mark && board.a1.mark === board.c1.mark) {
+	        winner = board.a1.mark;
+	      };
+	      if (board.a2.mark === board.b2.mark && board.a2.mark === board.c2.mark) {
+	        winner = board.a2.mark;
+	      };
+	      if (board.a3.mark === board.b3.mark && board.a3.mark === board.c3.mark) {
+	        winner = board.a3.mark;
+	      };
+	
+	      // check diagonals
+	      if (board.a1.mark === board.b2.mark && board.a1.mark === board.c3.mark) {
+	        winner = board.a1.mark;
+	      };
+	      if (board.a3.mark === board.b2.mark && board.a3.mark === board.c1.mark) {
+	        winner = board.a3.mark;
+	      };
+	
+	      // if there's a winner, stop the game, reset board
+	      if (winner) {
+	        this.setState(function (prevState, props) {
+	          prevState.turn.player = 'Game over! ' + winner + ' wins!';
+	          return prevState;
+	        }, function () {
+	          _this2.resetBoard();
+	        });
+	      }
+	
+	      return winner;
+	    }
+	  }, {
+	    key: 'resetBoard',
+	    value: function resetBoard() {
+	      this.setState(function (prevState, props) {
+	        for (var item in prevState.board) {
+	          prevState.board[item].mark = '';
+	        }
+	      });
 	    }
 	  }, {
 	    key: 'makeComputerSelection',
 	    value: function makeComputerSelection() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var timeoutLength = Math.floor(Math.random() * 5) + 2;
 	
 	      setTimeout(function () {
-	        _this2.setState(function (prevState, props) {
+	        _this3.setState(function (prevState, props) {
 	
 	          // get available squares
 	          var availableSquares = [];
 	          var squareKeys = Object.keys(prevState.board);
 	
-	          for (var i = 0; i < 8; i++) {
+	          for (var i = 0; i < squareKeys.length; i++) {
 	            if (prevState.board[squareKeys[i]].mark === '') {
 	              availableSquares.push(squareKeys[i]);
 	            }
 	          }
 	
-	          console.log('available squares', availableSquares);
+	          if (availableSquares) {
+	            // randomly select a square
+	            var computerMoveIndex = Math.floor(Math.random() * availableSquares.length);
 	
-	          // randomly select a square
-	          var computerMoveIndex = Math.floor(Math.random() * availableSquares.length);
-	
-	          console.log('computer move', availableSquares[computerMoveIndex]);
-	
-	          // update board with computer selection
-	          prevState.board[availableSquares[computerMoveIndex]].mark = 'O';
-	          prevState.turn.player = 'user';
-	          return prevState;
+	            // update board with computer selection
+	            prevState.board[availableSquares[computerMoveIndex]].mark = 'O';
+	            prevState.turn.player = 'user';
+	            return prevState;
+	          } else {
+	            prevState.turn.player = 'Game over! Cat\'s game!';
+	          }
 	        }, function () {
-	          if (_this2.checkForWinner()) {} else {}
+	          _this3.checkForWinner(_this3.state.board);
 	        });
 	      }, timeoutLength * 1000);
 	    }
 	  }, {
 	    key: 'onPlayerSelect',
 	    value: function onPlayerSelect(e) {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      if (this.state.turn.player === 'user') {
 	        (function () {
 	          var selectedSquare = e.target.classList.value;
-	          _this3.setState(function (prevState, props) {
+	          _this4.setState(function (prevState, props) {
 	            prevState.board[selectedSquare].mark = 'X';
 	            prevState.turn.player = 'computer';
 	            return prevState;
 	          }, function () {
-	            _this3.makeComputerSelection();
+	            var winner = _this4.checkForWinner(_this4.state.board);
+	            if (!winner) {
+	              _this4.makeComputerSelection();
+	            }
 	          });
 	        })();
 	      }

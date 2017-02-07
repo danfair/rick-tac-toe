@@ -14,7 +14,7 @@ class GameBoard extends Component {
         },
         a2: {
           player: '',
-          mark: 'X'
+          mark: ''
         },
         a3: {
           player: '',
@@ -50,12 +50,43 @@ class GameBoard extends Component {
     this.onPlayerSelect = this.onPlayerSelect.bind(this);
   }
 
-  updatePlayerImage() {
+  checkForWinner(board) {
+    let winner = false;
+    
+    // check rows
+    if (board.a1.mark === board.a2.mark && board.a1.mark === board.a3.mark) { winner = board.a1.mark };
+    if (board.b1.mark === board.b2.mark && board.b1.mark === board.b3.mark) { winner = board.b1.mark };
+    if (board.c1.mark === board.c2.mark && board.c1.mark === board.c3.mark) { winner = board.c1.mark };
 
+    // check columns
+    if (board.a1.mark === board.b1.mark && board.a1.mark === board.c1.mark) { winner = board.a1.mark };
+    if (board.a2.mark === board.b2.mark && board.a2.mark === board.c2.mark) { winner = board.a2.mark };
+    if (board.a3.mark === board.b3.mark && board.a3.mark === board.c3.mark) { winner = board.a3.mark };
+    
+
+    // check diagonals
+    if (board.a1.mark === board.b2.mark && board.a1.mark === board.c3.mark) { winner = board.a1.mark };
+    if (board.a3.mark === board.b2.mark && board.a3.mark === board.c1.mark) { winner = board.a3.mark };
+
+    // if there's a winner, stop the game, reset board
+    if (winner) {
+      this.setState((prevState, props) => {
+        prevState.turn.player = `Game over! ${winner} wins!`;
+        return prevState;
+      }, () => {
+        this.resetBoard();
+      });
+    }
+
+    return winner;
   }
 
-  checkForWinner() {
-    return false;
+  resetBoard() {
+    this.setState((prevState, props) => {
+      for (let item in prevState.board) {
+        prevState.board[item].mark = '';
+      }
+    });
   }
 
   makeComputerSelection() {
@@ -68,30 +99,25 @@ class GameBoard extends Component {
         let availableSquares = [];
         let squareKeys = Object.keys(prevState.board);
 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < squareKeys.length; i++) {
           if (prevState.board[squareKeys[i]].mark === '') {
             availableSquares.push(squareKeys[i]);
           }
         }
 
-        console.log('available squares', availableSquares);
-
-        // randomly select a square
-        const computerMoveIndex = Math.floor(Math.random() * availableSquares.length);
-
-        console.log('computer move', availableSquares[computerMoveIndex]);
-        
-        // update board with computer selection
-        prevState.board[availableSquares[computerMoveIndex]].mark = 'O';
-        prevState.turn.player = 'user';
-        return prevState;
-
-      }, () => {
-        if (this.checkForWinner()) {
-
+        if (availableSquares) {
+          // randomly select a square
+          const computerMoveIndex = Math.floor(Math.random() * availableSquares.length);
+          
+          // update board with computer selection
+          prevState.board[availableSquares[computerMoveIndex]].mark = 'O';
+          prevState.turn.player = 'user';
+          return prevState;
         } else {
-
+          prevState.turn.player = 'Game over! Cat\'s game!';
         }
+      }, () => {
+        this.checkForWinner(this.state.board);
       });
     }, timeoutLength * 1000);
   }
@@ -104,7 +130,10 @@ class GameBoard extends Component {
         prevState.turn.player = 'computer';
         return prevState;
       }, () => {
-        this.makeComputerSelection();
+        let winner = this.checkForWinner(this.state.board);
+        if (!winner) {
+          this.makeComputerSelection();
+        }
       });
     }
   }
