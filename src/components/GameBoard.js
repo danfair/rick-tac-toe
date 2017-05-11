@@ -54,19 +54,19 @@ class GameBoard extends Component {
     let winner = false;
     
     // check rows
-    if (board.a1.mark === board.a2.mark && board.a1.mark === board.a3.mark) { winner = board.a1.mark };
-    if (board.b1.mark === board.b2.mark && board.b1.mark === board.b3.mark) { winner = board.b1.mark };
-    if (board.c1.mark === board.c2.mark && board.c1.mark === board.c3.mark) { winner = board.c1.mark };
+    if (board.a1.mark === board.a2.mark && board.a1.mark === board.a3.mark) { winner = board.a1.mark; }
+    if (board.b1.mark === board.b2.mark && board.b1.mark === board.b3.mark) { winner = board.b1.mark; }
+    if (board.c1.mark === board.c2.mark && board.c1.mark === board.c3.mark) { winner = board.c1.mark; }
 
     // check columns
-    if (board.a1.mark === board.b1.mark && board.a1.mark === board.c1.mark) { winner = board.a1.mark };
-    if (board.a2.mark === board.b2.mark && board.a2.mark === board.c2.mark) { winner = board.a2.mark };
-    if (board.a3.mark === board.b3.mark && board.a3.mark === board.c3.mark) { winner = board.a3.mark };
+    if (board.a1.mark === board.b1.mark && board.a1.mark === board.c1.mark) { winner = board.a1.mark; }
+    if (board.a2.mark === board.b2.mark && board.a2.mark === board.c2.mark) { winner = board.a2.mark; }
+    if (board.a3.mark === board.b3.mark && board.a3.mark === board.c3.mark) { winner = board.a3.mark; }
     
 
     // check diagonals
-    if (board.a1.mark === board.b2.mark && board.a1.mark === board.c3.mark) { winner = board.a1.mark };
-    if (board.a3.mark === board.b2.mark && board.a3.mark === board.c1.mark) { winner = board.a3.mark };
+    if (board.a1.mark === board.b2.mark && board.a1.mark === board.c3.mark) { winner = board.a1.mark; }
+    if (board.a3.mark === board.b2.mark && board.a3.mark === board.c1.mark) { winner = board.a3.mark; }
 
     // if there's a winner, stop the game, reset board
     if (winner) {
